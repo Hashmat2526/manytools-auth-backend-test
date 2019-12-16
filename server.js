@@ -22,11 +22,13 @@ app.use('/users', require('./api/routes/usersR'));
 app.use((req, res, next) => {
     const error = new Error('Not Found');
     error.status = 404;
+    console.log(error)
     next(error);
 });
 // server error
 app.use((error, req, res, next) => {
     res.status(error.status || 500);
+    console.log(error)
     res.json({
         error: {
             message: error.message
@@ -36,4 +38,5 @@ app.use((error, req, res, next) => {
 
 // Start the server
 const port = process.env.PORT || 3000;
+console.log(`port is running on ${port}`)
 app.listen(port); 
