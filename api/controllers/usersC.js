@@ -59,15 +59,14 @@ const signUp = async (req, res, next) => {
 // login with email and password and generate jwt
 const signIn = async (req, res, next) => {
     try {
-
         const { email, password } = req.body;
         // Find the user given the email
-        const user = await User.findOne({ "local.email": email }).lean();
+        const user = await User.findOne({ "local.email": email });
 
         // If user email is not in the database
         if (!user) {
             return res.status(403).json({
-                hasError: false,
+                hasError: true,
                 error: "Auth Failed"
             })
         }
@@ -92,6 +91,7 @@ const signIn = async (req, res, next) => {
             })
         }
     } catch (error) {
+        console.log("errorr in server", error)
         res.sendStatus(500).json({
             hasError: true,
             error: error

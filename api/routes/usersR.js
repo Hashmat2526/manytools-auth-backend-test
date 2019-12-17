@@ -15,7 +15,6 @@ router.get('/validate/token', checkAuth, UsersController.validateToken)
 
 router.post('/oauth/facebook', UsersController.facebookOAuth);
 
-router.post('/validate/email', UsersController.validateEmail)
-
+router.post('/validate/email', UsersController.validateEmail);
 
 module.exports = router;

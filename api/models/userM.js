@@ -49,12 +49,12 @@ const userSchema = new Schema({
 });
 
 // generate hashed password for local method before saving a user
-userSchema.pre('save', async (next) => {
+userSchema.pre('save', async function (next) {
     try {
+
         if (this.method !== 'local') {
             next();
         }
-
         // Generate a salt
         const salt = await bcrypt.genSalt(10);
         // Generate a password hash (salt + hash)
@@ -63,16 +63,17 @@ userSchema.pre('save', async (next) => {
         this.local.password = passwordHash;
         next();
     } catch (error) {
+        console.log("error in presave", error)
         next(error);
     }
 });
 
 // comparing hashed password in case of local method
-userSchema.methods.isValidPassword = async (newPassword) => {
+userSchema.methods.isValidPassword = async function (newPassword) {
     try {
         return await bcrypt.compare(newPassword, this.local.password);
     } catch (error) {
-
+        console.log("error in match pass", error)
         throw new Error(error);
     }
 }

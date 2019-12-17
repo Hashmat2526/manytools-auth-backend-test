@@ -4,15 +4,19 @@ const bodyParser = require('body-parser');
 const connectdb = require('./api/commons/connectdb')
 const app = express();
 const cors = require('./api/middlewares/cors')
+const mongoose = require('mongoose')
+const config = require('./api/commons/config')
 
 //db connection
 connectdb();
+
 
 // Middlewaress
 app.use(morgan('dev')); //console logs of the requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 app.use(cors)
+
 
 // users routes
 app.use('/users', require('./api/routes/usersR'));
