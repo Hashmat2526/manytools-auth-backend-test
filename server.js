@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 const connectdb = require('./api/commons/connectdb')
 const app = express();
 const cors = require('./api/middlewares/cors')
-const mongoose = require('mongoose')
-const config = require('./api/commons/config')
 
 //db connection
 connectdb();
